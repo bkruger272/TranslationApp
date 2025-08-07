@@ -12,6 +12,7 @@ class TranslatorApp(QWidget):
         super().__init__()
         self.initUI()
         self.settings()
+        self.button_click()
 
 
     #App Object and Design
@@ -23,14 +24,11 @@ class TranslatorApp(QWidget):
         self.submit = QPushButton("Translate Now")
         self.input_option = QComboBox()
         self.output_option = QComboBox()
-        self.title = QLabel("PyLate")
+        self.title = QLabel("Translator App")
         self.title.setFont(QFont("Helvetica",45))
-
         self.input_option.addItems(values)
         self.output_option.addItems(values)
 
-
-        self.title = QLabel("Translator App")
 
 
         self.master = QHBoxLayout()
@@ -49,6 +47,7 @@ class TranslatorApp(QWidget):
 
         self.master.addLayout(col1, 20)
         self.master.addLayout(col2, 80)
+        self.setLayout(self.master)
 
         self.setStyleSheet("""
             QWidget {
@@ -84,7 +83,7 @@ class TranslatorApp(QWidget):
 
 
     #Translate Click
-    def translate_ckick(self):
+    def translate_click(self):
         value_to_key1 = self.output_option.currentText()
         value_to_key2 = self.input_option.currentText()
 
@@ -109,7 +108,7 @@ class TranslatorApp(QWidget):
 
 
     #Reverse Translation
-    def reverse(self):
+    def reverse_click(self):
         s1,l1 = self.input_box.toPlainText(), self.input_option.currentText()
         s2,l2 = self.output_box.toPlainText(), self.output_option.currentText()
 
