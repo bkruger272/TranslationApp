@@ -1,6 +1,9 @@
 #Modules
+from PyQt5.QtWidgets import QApplication, QWidget, QTextEdit, QComboBox,QPushButton, QLabel, QHBoxLayout,QVBoxLayout
+from PyQt5.QtGui import QFont
 from googletrans import Translator
 from languages import *
+
 
 #Class
 class TranslatorApp(QWidget):
@@ -13,13 +16,15 @@ class TranslatorApp(QWidget):
 
     #App Object and Design
     def initUI(self):
-        self.input_box = QtextEdit()
+        self.input_box = QTextEdit()
         self.output_box = QTextEdit()
         self.reverse = QPushButton("Reverse")
         self.reset = QPushButton("Reset")
         self.submit = QPushButton("Translate Now")
         self.input_option = QComboBox()
         self.output_option = QComboBox()
+        self.title = QLabel("PyLate")
+        self.title.setFont(QFont("Helvetica",45))
 
         self.input_option.addItems(values)
         self.output_option.addItems(values)
@@ -29,8 +34,6 @@ class TranslatorApp(QWidget):
 
 
         self.master = QHBoxLayout()
-
-
         col1 = QVBoxLayout()
         col2 = QVBoxLayout()
 
@@ -47,6 +50,27 @@ class TranslatorApp(QWidget):
         self.master.addLayout(col1, 20)
         self.master.addLayout(col2, 80)
 
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #333; /* Darker background color */
+                color: #fff; /* Text color */
+            }
+
+            QPushButton {
+                background-color: #66a3ff; /* Lighter background color for buttons */
+                color: #333; /* Text color for buttons */
+                border: 1px solid #fff; /* White border for buttons */
+                border-radius: 5px; /* Rounded corners for buttons */
+                padding: 5px 10px; /* Padding for buttons */
+            }
+
+            QPushButton:hover {
+                background-color: #3399ff; /* Lighter background color for buttons on hover */
+            }
+        """)
+
+
+
     #App Settings
     def settings(self):
         self.setWindowTitle("Translator App")
@@ -54,7 +78,9 @@ class TranslatorApp(QWidget):
 
     #Button Events
     def button_click(self):
-        pass
+        self.submit.clicked.connect(self.translate_click)
+        self.reset.clicked.connect(self.reset_app)
+        self.reverse.clicked.connect(self.reverse_click)
 
 
     #Translate Click
@@ -98,6 +124,6 @@ class TranslatorApp(QWidget):
 #Main Run
 if __name__ in "__main__":
     app = QApplication([])
-    Main = Home()
-    Main.show()
+    main = TranslatorApp()
+    main.show()
     app.exec_()
